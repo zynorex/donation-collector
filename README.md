@@ -1,36 +1,64 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# University Student Donation Portal
 
-## Getting Started
+A full-stack web application for university students to browse and donate towards university events. Built with Next.js 14, Tailwind CSS, shadcn/ui, Prisma, NextAuth, and Razorpay.
 
-First, run the development server:
+## Features
+- **Public**: Browse events, view details, progress bars, and donate via Razorpay.
+- **Students**: Login/Signup, view donation history, earn badges.
+- **Admin**: Create campaigns, view overall stats, manage events.
+- **Payments**: Razorpay integration with webhooks for secure validation.
+- **Media**: Cloudinary integration for banner image uploads.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## Prerequisites
+- Node.js 18+
+- PostgreSQL Database
+- Razorpay Account
+- Cloudinary Account
+
+## Environment Variables
+Create a `.env` file in the root directory:
+```env
+DATABASE_URL="postgresql://user:password@localhost:5432/donation_portal?schema=public"
+NEXTAUTH_URL="http://localhost:3000"
+NEXTAUTH_SECRET="super-secret-nextauth-key"
+
+RAZORPAY_KEY_ID="your_razorpay_key_id"
+RAZORPAY_KEY_SECRET="your_razorpay_secret"
+NEXT_PUBLIC_RAZORPAY_KEY_ID="your_razorpay_key_id"
+
+NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME="your_cloud_name"
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+*Note: For Cloudinary, you must create an "unsigned" upload preset named `unifund_preset` in your Cloudinary settings.*
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Setup Instructions
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. **Install dependencies**
+   ```bash
+   npm install
+   ```
 
-## Learn More
+2. **Database Setup**
+   ```bash
+   npx prisma generate
+   npx prisma db push
+   ```
 
-To learn more about Next.js, take a look at the following resources:
+3. **Seed Database**
+   This will create categories and an initial admin user (`admin@university.edu` / `admin123`).
+   ```bash
+   npm run prisma db seed
+   ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+4. **Run the Development Server**
+   ```bash
+   npm run dev
+   ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+5. Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Architecture
+- `app/` - Next.js App Router (pages and API endpoints)
+- `components/` - Reusable React components (shadcn/ui + custom)
+- `lib/` - Prisma client, NextAuth configuration, Razorpay instance
+- `prisma/` - Database schema and seed script

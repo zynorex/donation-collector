@@ -1,0 +1,65 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String     @id @default(cuid())
+  name         String?
+  email        String     @unique
+  password     String
+  role         String     @default("STUDENT") // STUDENT or ADMIN
+  universityId String?    // Roll Number / ID
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+  donations    Donation[]
+  events       Event[]    @relation("CreatedEvents")
+}
+
+model Category {
+  id     String  @id @default(cuid())
+  name   String  @unique // e.g. Cultural, Sports, Technical, Social, Infrastructure
+  events Event[]
+}
+
+model Event {
+  id           String      @id @default(cuid())
+  title        String
+  description  String
+  bannerImage  String?
+  targetAmount Float
+  raisedAmount Float       @default(0)
+  deadline     DateTime
+  status       String      @default("ACTIVE") // ACTIVE, COMPLETED, CANCELLED
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+
+  categoryId   String
+  category     Category    @relation(fields: [categoryId], references: [id])
+
+  createdById  String
+  createdBy    User        @relation("CreatedEvents", fields: [createdById], references: [id])
+
+  donations    Donation[]
+}
+
+model Donation {
+  id            String         @id @default(cuid())
+  amount        Float
+  transactionId String?
+  status        String         @default("PENDING") // PENDING, SUCCESS, FAILED
+  message       String?
+  isAnonymous   Boolean        @default(false)
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+
+  userId        String?
+  user          User?          @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  eventId       String
+  event         Event          @relation(fields: [eventId], references: [id], onDelete: Cascade)
+}
