@@ -1,93 +1,164 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
+
+@layer base {
+  :root {
+    /* === NEO-BRUTALIST COLOR TOKENS === */
+    --background: #FDF0D5;
+    --foreground: #1A1A1A;
+    --surface: #FFFFFF;
+
+    --primary: #C5F82A;
+    --primary-foreground: #1A1A1A;
+    --secondary: #3D5AFE;
+    --secondary-foreground: #FFFFFF;
+    --accent: #FF6B6B;
+    --accent-foreground: #FFFFFF;
+
+    --success: #00E676;
+    --warning: #FFD600;
+
+    --muted: #F5E6C8;
+    --muted-foreground: #4A4A4A;
+
+    --destructive: #FF6B6B;
+    --destructive-foreground: #FFFFFF;
+
+    --border: #000000;
+    --border-width: 3px;
+    --input: #000000;
+    --ring: #C5F82A;
+
+    --card: #FFFFFF;
+    --card-foreground: #1A1A1A;
+    --popover: #FFFFFF;
+    --popover-foreground: #1A1A1A;
+
+    --radius: 12px;
+
+    /* === SHADOW TOKENS === */
+    --shadow-brutal-sm: 2px 2px 0px #000000;
+    --shadow-brutal: 4px 4px 0px #000000;
+    --shadow-brutal-md: 6px 6px 0px #000000;
+    --shadow-brutal-lg: 8px 8px 0px #000000;
+    --shadow-brutal-hover: 2px 2px 0px #000000;
+  }
+
+  * {
+    border-color: var(--border);
+  }
+
+  html {
+    font-family: 'Inter', system-ui, sans-serif;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: 'Inter', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--foreground);
+  }
+
+  ::selection {
+    background-color: var(--primary);
+    color: var(--foreground);
+  }
+}
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
-}
 
-@layer base {
-  .theme {
-    --font-heading: var(--font-sans);
-    --font-sans: var(--font-sans);
+  /* === BRUTALIST UTILITIES === */
+  .brutal-border {
+    border: 3px solid #000000;
   }
-  :root {
-    --background: oklch(1 0 0);
-    --foreground: oklch(0.145 0 0);
-    --card: oklch(1 0 0);
-    --card-foreground: oklch(0.145 0 0);
-    --popover: oklch(1 0 0);
-    --popover-foreground: oklch(0.145 0 0);
-    --primary: oklch(0.205 0 0);
-    --primary-foreground: oklch(0.985 0 0);
-    --secondary: oklch(0.97 0 0);
-    --secondary-foreground: oklch(0.205 0 0);
-    --muted: oklch(0.97 0 0);
-    --muted-foreground: oklch(0.556 0 0);
-    --accent: oklch(0.97 0 0);
-    --accent-foreground: oklch(0.205 0 0);
-    --destructive: oklch(0.577 0.245 27.325);
-    --border: oklch(0.922 0 0);
-    --input: oklch(0.922 0 0);
-    --ring: oklch(0.708 0 0);
-    --chart-1: oklch(0.87 0 0);
-    --chart-2: oklch(0.556 0 0);
-    --chart-3: oklch(0.439 0 0);
-    --chart-4: oklch(0.371 0 0);
-    --chart-5: oklch(0.269 0 0);
-    --radius: 0.625rem;
-    --sidebar: oklch(0.985 0 0);
-    --sidebar-foreground: oklch(0.145 0 0);
-    --sidebar-primary: oklch(0.205 0 0);
-    --sidebar-primary-foreground: oklch(0.985 0 0);
-    --sidebar-accent: oklch(0.97 0 0);
-    --sidebar-accent-foreground: oklch(0.205 0 0);
-    --sidebar-border: oklch(0.922 0 0);
-    --sidebar-ring: oklch(0.708 0 0);
+
+  .brutal-border-2 {
+    border: 2px solid #000000;
   }
-  .dark {
-    --background: oklch(0.145 0 0);
-    --foreground: oklch(0.985 0 0);
-    --card: oklch(0.205 0 0);
-    --card-foreground: oklch(0.985 0 0);
-    --popover: oklch(0.205 0 0);
-    --popover-foreground: oklch(0.985 0 0);
-    --primary: oklch(0.922 0 0);
-    --primary-foreground: oklch(0.205 0 0);
-    --secondary: oklch(0.269 0 0);
-    --secondary-foreground: oklch(0.985 0 0);
-    --muted: oklch(0.269 0 0);
-    --muted-foreground: oklch(0.708 0 0);
-    --accent: oklch(0.269 0 0);
-    --accent-foreground: oklch(0.985 0 0);
-    --destructive: oklch(0.704 0.191 22.216);
-    --border: oklch(1 0 0 / 10%);
-    --input: oklch(1 0 0 / 15%);
-    --ring: oklch(0.556 0 0);
-    --chart-1: oklch(0.87 0 0);
-    --chart-2: oklch(0.556 0 0);
-    --chart-3: oklch(0.439 0 0);
-    --chart-4: oklch(0.371 0 0);
-    --chart-5: oklch(0.269 0 0);
-    --sidebar: oklch(0.205 0 0);
-    --sidebar-foreground: oklch(0.985 0 0);
-    --sidebar-primary: oklch(0.488 0.243 264.376);
-    --sidebar-primary-foreground: oklch(0.985 0 0);
-    --sidebar-accent: oklch(0.269 0 0);
-    --sidebar-accent-foreground: oklch(0.985 0 0);
-    --sidebar-border: oklch(1 0 0 / 10%);
-    --sidebar-ring: oklch(0.556 0 0);
+
+  .brutal-shadow {
+    box-shadow: 4px 4px 0px #000000;
   }
-  * {
-    border-color: var(--border);
+
+  .brutal-shadow-sm {
+    box-shadow: 2px 2px 0px #000000;
   }
-  body {
-    @apply bg-background text-foreground;
+
+  .brutal-shadow-md {
+    box-shadow: 6px 6px 0px #000000;
   }
-  html {
-    @apply font-sans;
+
+  .brutal-shadow-lg {
+    box-shadow: 8px 8px 0px #000000;
+  }
+
+  .brutal-hover {
+    transition: all 150ms ease;
+  }
+
+  .brutal-hover:hover {
+    box-shadow: 2px 2px 0px #000000;
+    transform: translate(2px, 2px);
+  }
+
+  .brutal-hover:active {
+    box-shadow: 0px 0px 0px #000000;
+    transform: translate(4px, 4px);
+  }
+
+  .brutal-card-hover {
+    transition: all 200ms ease;
+  }
+
+  .brutal-card-hover:hover {
+    box-shadow: 2px 2px 0px #000000;
+    transform: translate(4px, 4px);
+  }
+
+  /* === DECORATIVE === */
+  .section-accent {
+    position: relative;
+    display: inline-block;
+  }
+
+  .section-accent::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 60px;
+    height: 4px;
+    background-color: var(--primary);
+  }
+
+  .font-heading {
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+  }
+
+  .font-body {
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+
+  .text-label {
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 0.75rem;
   }
 }

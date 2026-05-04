@@ -38,16 +38,13 @@ export default function CreateEventPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-
     try {
       const res = await fetch("/api/events", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ ...formData, bannerImage }),
       });
-
       if (!res.ok) throw new Error("Failed to create event");
-
       toast.success("Campaign created successfully!");
       router.push("/admin/dashboard");
     } catch (error: any) {
@@ -58,14 +55,19 @@ export default function CreateEventPage() {
   };
 
   return (
-    <div className="container mx-auto px-4 py-8 max-w-3xl">
-      <h1 className="text-3xl font-bold text-navy dark:text-white mb-8">Create New Campaign</h1>
+    <div className="container mx-auto px-4 py-10 max-w-3xl">
+      <div className="flex items-center gap-4 mb-8">
+        <h1 className="font-heading text-3xl md:text-4xl font-bold uppercase tracking-tight text-brutal-black">
+          Create Campaign
+        </h1>
+        <div className="flex-1 h-[3px] bg-black hidden md:block" />
+      </div>
       
       <Card>
         <CardContent className="pt-6">
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="space-y-2">
-              <Label htmlFor="title">Campaign Title</Label>
+              <Label htmlFor="title" className="text-label">Campaign Title</Label>
               <Input
                 id="title"
                 value={formData.title}
@@ -75,7 +77,7 @@ export default function CreateEventPage() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="description">Description</Label>
+              <Label htmlFor="description" className="text-label">Description</Label>
               <Textarea
                 id="description"
                 rows={5}
@@ -87,7 +89,7 @@ export default function CreateEventPage() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="space-y-2">
-                <Label htmlFor="targetAmount">Target Amount (₹)</Label>
+                <Label htmlFor="targetAmount" className="text-label">Target Amount (₹)</Label>
                 <Input
                   id="targetAmount"
                   type="number"
@@ -97,9 +99,8 @@ export default function CreateEventPage() {
                   required
                 />
               </div>
-
               <div className="space-y-2">
-                <Label htmlFor="deadline">Deadline</Label>
+                <Label htmlFor="deadline" className="text-label">Deadline</Label>
                 <Input
                   id="deadline"
                   type="datetime-local"
@@ -111,7 +112,7 @@ export default function CreateEventPage() {
             </div>
 
             <div className="space-y-2">
-              <Label>Category</Label>
+              <Label className="text-label">Category</Label>
               <Select onValueChange={(val: any) => setFormData({ ...formData, categoryId: val || "" })}>
                 <SelectTrigger>
                   <SelectValue placeholder="Select a category" />
@@ -125,28 +126,28 @@ export default function CreateEventPage() {
             </div>
 
             <div className="space-y-2">
-              <Label>Banner Image</Label>
+              <Label className="text-label">Banner Image</Label>
               <CldUploadWidget
-                uploadPreset="unifund_preset" // You will need to create an unsigned preset in Cloudinary
-                onSuccess={(result: any) => {
-                  setBannerImage(result.info.secure_url);
-                }}
+                uploadPreset="unifund_preset"
+                onSuccess={(result: any) => { setBannerImage(result.info.secure_url); }}
               >
-                {({ open }) => {
-                  return (
-                    <div className="flex items-center gap-4">
-                      <Button type="button" variant="outline" onClick={() => open()}>
-                        Upload Image
-                      </Button>
-                      {bannerImage && <span className="text-sm text-green-600">Image uploaded successfully</span>}
-                    </div>
-                  );
-                }}
+                {({ open }) => (
+                  <div className="flex items-center gap-4">
+                    <Button type="button" variant="outline" onClick={() => open()}>
+                      Upload Image
+                    </Button>
+                    {bannerImage && (
+                      <span className="text-sm font-heading font-bold text-brutal-blue uppercase">
+                        ✓ Uploaded
+                      </span>
+                    )}
+                  </div>
+                )}
               </CldUploadWidget>
             </div>
 
-            <Button type="submit" disabled={loading} className="w-full bg-navy text-white hover:bg-navy/90">
-              {loading ? "Creating..." : "Create Campaign"}
+            <Button type="submit" disabled={loading} className="w-full">
+              {loading ? "Creating..." : "Create Campaign →"}
             </Button>
           </form>
         </CardContent>
