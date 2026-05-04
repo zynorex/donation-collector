@@ -10,7 +10,7 @@ function Card({
     <div
       data-slot="card"
       className={cn(
-        "group/card flex flex-col gap-0 bg-white border-3 border-black shadow-brutal-md text-sm text-brutal-black overflow-hidden",
+        "group/card flex flex-col gap-0 bg-white border-3 border-black shadow-brutal-md text-sm text-brutal-black overflow-hidden brutal-card-hover rounded-none",
         className
       )}
       {...props}
@@ -82,7 +82,7 @@ function CardFooter({ className, ...props }: React.ComponentProps<"div">) {
     <div
       data-slot="card-footer"
       className={cn(
-        "flex items-center border-t-3 border-black bg-brutal-cream/50 px-6 py-4",
+        "flex items-center border-t-3 border-black bg-brutal-bg px-6 py-4",
         className
       )}
       {...props}

@@ -9,16 +9,16 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default:
-          "bg-brutal-lime text-brutal-black shadow-brutal hover:shadow-brutal-hover hover:translate-x-[2px] hover:translate-y-[2px] active:shadow-none active:translate-x-1 active:translate-y-1",
+          "bg-brutal-accent text-brutal-black shadow-brutal hover:shadow-brutal-hover hover:translate-x-[2px] hover:translate-y-[2px] active:shadow-none active:translate-x-[4px] active:translate-y-[4px]",
         secondary:
-          "bg-brutal-blue text-white shadow-brutal hover:shadow-brutal-hover hover:translate-x-[2px] hover:translate-y-[2px] active:shadow-none active:translate-x-1 active:translate-y-1",
+          "bg-white text-brutal-black shadow-brutal hover:shadow-brutal-hover hover:translate-x-[2px] hover:translate-y-[2px] active:shadow-none active:translate-x-[4px] active:translate-y-[4px]",
         outline:
-          "bg-white text-brutal-black shadow-brutal hover:bg-brutal-cream hover:shadow-brutal-hover hover:translate-x-[2px] hover:translate-y-[2px] active:shadow-none active:translate-x-1 active:translate-y-1",
+          "bg-white text-brutal-black shadow-brutal hover:bg-brutal-accent hover:shadow-brutal-hover hover:translate-x-[2px] hover:translate-y-[2px] active:shadow-none active:translate-x-[4px] active:translate-y-[4px]",
         ghost:
-          "border-transparent bg-transparent hover:bg-brutal-cream shadow-none",
+          "bg-transparent text-brutal-black shadow-brutal hover:bg-brutal-accent hover:shadow-brutal-hover hover:translate-x-[2px] hover:translate-y-[2px] active:shadow-none active:translate-x-[4px] active:translate-y-[4px]",
         destructive:
-          "bg-brutal-coral text-white shadow-brutal hover:shadow-brutal-hover hover:translate-x-[2px] hover:translate-y-[2px] active:shadow-none active:translate-x-1 active:translate-y-1",
-        link: "border-transparent text-brutal-blue underline-offset-4 hover:underline shadow-none bg-transparent",
+          "bg-brutal-pink text-white shadow-brutal hover:shadow-brutal-hover hover:translate-x-[2px] hover:translate-y-[2px] active:shadow-none active:translate-x-[4px] active:translate-y-[4px]",
+        link: "border-transparent text-brutal-blue underline-offset-4 hover:underline hover:decoration-3 shadow-none bg-transparent active:translate-x-[2px] active:translate-y-[2px]",
       },
       size: {
         default: "h-10 gap-2 px-5 py-2",
