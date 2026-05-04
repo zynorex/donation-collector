@@ -29,7 +29,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${spaceGrotesk.variable} ${inter.variable}`}>
-      <body className="font-sans bg-brutal-cream text-brutal-black antialiased">
+      <body className="font-sans bg-brutal-bg text-brutal-black antialiased">
         <Providers>
           <Navbar />
           <main className="min-h-screen">

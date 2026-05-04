@@ -31,14 +31,16 @@ const config = {
         surface: "var(--surface)",
         // Neo-Brutalist palette
         brutal: {
-          lime: "#C5F82A",
-          blue: "#3D5AFE",
-          coral: "#FF6B6B",
-          black: "#1A1A1A",
-          cream: "#FDF0D5",
-          yellow: "#FFD600",
-          mint: "#00E676",
-          charcoal: "#4A4A4A",
+          accent: "#FFE500", // Electric Yellow
+          black: "#000000",
+          white: "#FFFFFF",
+          bg: "#FFFDF5",
+          blue: "#0047FF",
+          pink: "#FF3EA5",
+          orange: "#FF5C00",
+          lime: "#CCFF00",
+          mint: "#00FF85",
+          charcoal: "#000000", // Enforce pure black where charcoal was used
         },
         primary: {
           DEFAULT: "var(--primary)",
@@ -75,19 +77,17 @@ const config = {
         '3': '3px',
       },
       boxShadow: {
-        'brutal-sm': '2px 2px 0px #000000',
-        'brutal': '4px 4px 0px #000000',
-        'brutal-md': '6px 6px 0px #000000',
-        'brutal-lg': '8px 8px 0px #000000',
-        'brutal-hover': '2px 2px 0px #000000',
-        'brutal-primary': '4px 4px 0px #C5F82A',
-        'brutal-blue': '4px 4px 0px #3D5AFE',
-        'brutal-coral': '4px 4px 0px #FF6B6B',
+        'brutal-sm': '2px 2px 0px 0px #000000',
+        'brutal': '4px 4px 0px 0px #000000',
+        'brutal-md': '6px 6px 0px 0px #000000',
+        'brutal-lg': '8px 8px 0px 0px #000000',
+        'brutal-xl': '12px 12px 0px 0px #000000',
+        'brutal-hover': '2px 2px 0px 0px #000000',
       },
       borderRadius: {
-        lg: "var(--radius)",
-        md: "calc(var(--radius) - 2px)",
-        sm: "calc(var(--radius) - 4px)",
+        lg: "0px",
+        md: "0px",
+        sm: "0px",
       },
       keyframes: {
         "accordion-down": {

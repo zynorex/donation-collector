@@ -8,13 +8,13 @@ export default function Navbar() {
   const { data: session } = useSession();
 
   return (
-    <nav className="bg-brutal-black text-white border-b-4 border-brutal-lime sticky top-0 z-50">
+    <nav className="bg-white text-brutal-black border-b-4 border-black sticky top-0 z-50">
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2 group">
-          <span className="inline-block w-3 h-3 bg-brutal-lime border-2 border-white rotate-45 group-hover:rotate-[135deg] transition-transform duration-300" />
-          <span className="font-heading text-xl font-bold uppercase tracking-tight text-white">
-            Uni<span className="text-brutal-lime">Fund</span>
+          <span className="inline-block w-3 h-3 bg-brutal-accent border-2 border-black rotate-45 group-hover:rotate-[135deg] transition-transform duration-300" />
+          <span className="font-heading text-xl font-bold uppercase tracking-tight text-brutal-black">
+            Uni<span className="text-brutal-accent bg-brutal-black px-1 ml-0.5">Fund</span>
           </span>
         </Link>
 
@@ -22,7 +22,7 @@ export default function Navbar() {
         <div className="flex gap-1 items-center">
           <Link
             href="/events"
-            className="px-3 py-2 font-heading text-sm font-bold uppercase tracking-wider text-white hover:text-brutal-lime transition-colors duration-150"
+            className="px-3 py-2 font-heading text-sm font-bold uppercase tracking-wider text-brutal-black hover:underline hover:decoration-3 hover:underline-offset-4 transition-all duration-150"
           >
             Events
           </Link>
@@ -32,21 +32,21 @@ export default function Navbar() {
               {session.user.role === "ADMIN" && (
                 <Link
                   href="/admin/dashboard"
-                  className="px-3 py-2 font-heading text-sm font-bold uppercase tracking-wider text-white hover:text-brutal-lime transition-colors duration-150"
+                  className="px-3 py-2 font-heading text-sm font-bold uppercase tracking-wider text-brutal-black hover:underline hover:decoration-3 hover:underline-offset-4 transition-all duration-150"
                 >
                   Admin
                 </Link>
               )}
               <Link
                 href="/dashboard"
-                className="px-3 py-2 font-heading text-sm font-bold uppercase tracking-wider text-white hover:text-brutal-lime transition-colors duration-150"
+                className="px-3 py-2 font-heading text-sm font-bold uppercase tracking-wider text-brutal-black hover:underline hover:decoration-3 hover:underline-offset-4 transition-all duration-150"
               >
                 Dashboard
               </Link>
               <Button
                 variant="outline"
                 size="sm"
-                className="ml-2 bg-transparent text-white border-white hover:bg-white hover:text-brutal-black"
+                className="ml-2"
                 onClick={() => signOut()}
               >
                 Sign Out
@@ -58,7 +58,6 @@ export default function Navbar() {
                 <Button
                   variant="ghost"
                   size="sm"
-                  className="text-white hover:text-brutal-lime border-transparent"
                 >
                   Login
                 </Button>
