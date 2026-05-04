@@ -21,6 +21,8 @@ export default function DonateButton({ eventId }: { eventId: string }) {
   const { data: session } = useSession();
   const router = useRouter();
 
+  const presets = [50, 100, 500, 1000];
+
   const handleDonate = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!amount || amount < 10) {
@@ -59,7 +61,7 @@ export default function DonateButton({ eventId }: { eventId: string }) {
           email: session?.user?.email || "",
         },
         theme: {
-          color: "#1e3a5f",
+          color: "#C5F82A",
         },
       };
 
@@ -76,21 +78,26 @@ export default function DonateButton({ eventId }: { eventId: string }) {
     <>
       <Script src="https://checkout.razorpay.com/v1/checkout.js" />
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogTrigger render={<Button className="w-full bg-navy text-white hover:bg-navy/90 text-lg py-6 shadow-lg shadow-navy/20">Donate Now</Button>} />
+        <DialogTrigger render={
+          <Button className="w-full text-lg py-6 shadow-brutal-md">
+            ✦ Donate Now
+          </Button>
+        } />
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
-            <DialogTitle className="text-2xl text-navy">Make a Donation</DialogTitle>
+            <DialogTitle>Make a Donation</DialogTitle>
           </DialogHeader>
-          <form onSubmit={handleDonate} className="space-y-4 mt-4">
+          <form onSubmit={handleDonate} className="space-y-5 mt-4">
+            {/* Amount Presets */}
             <div>
-              <Label htmlFor="amount">Amount (₹)</Label>
-              <div className="flex gap-2 mb-2 mt-1">
-                {[50, 100, 500, 1000].map((preset) => (
+              <Label htmlFor="amount" className="text-label mb-2 block">Amount (₹)</Label>
+              <div className="flex gap-2 mb-3 flex-wrap">
+                {presets.map((preset) => (
                   <Button
                     key={preset}
                     type="button"
                     variant={amount === preset ? "default" : "outline"}
-                    className={amount === preset ? "bg-navy text-white" : "text-navy border-navy"}
+                    size="sm"
                     onClick={() => setAmount(preset)}
                   >
                     ₹{preset}
@@ -108,8 +115,9 @@ export default function DonateButton({ eventId }: { eventId: string }) {
               />
             </div>
             
+            {/* Message */}
             <div>
-              <Label htmlFor="message">Message (Optional)</Label>
+              <Label htmlFor="message" className="text-label mb-2 block">Message (Optional)</Label>
               <Textarea
                 id="message"
                 placeholder="Leave a message of support..."
@@ -118,27 +126,33 @@ export default function DonateButton({ eventId }: { eventId: string }) {
               />
             </div>
 
-            <div className="flex items-center space-x-2 pt-2">
+            {/* Anonymous Toggle */}
+            <div className="flex items-center space-x-3 pt-1">
               <input
                 type="checkbox"
                 id="anonymous"
-                className="rounded border-neutral-300 text-navy focus:ring-navy h-4 w-4"
+                className="w-5 h-5 border-3 border-black bg-white checked:bg-brutal-lime appearance-none cursor-pointer relative checked:after:content-['✓'] checked:after:absolute checked:after:inset-0 checked:after:flex checked:after:items-center checked:after:justify-center checked:after:text-brutal-black checked:after:font-bold checked:after:text-xs"
                 checked={isAnonymous}
                 onChange={(e) => setIsAnonymous(e.target.checked)}
               />
-              <Label htmlFor="anonymous" className="text-sm font-normal cursor-pointer">
+              <Label htmlFor="anonymous" className="text-sm font-sans font-normal cursor-pointer">
                 Donate anonymously (hide my name)
               </Label>
             </div>
 
+            {/* Guest message */}
             {!session && (
-              <p className="text-sm text-neutral-500 bg-neutral-100 p-3 rounded-md">
-                You are donating as a guest. <a href="/auth/login" className="text-navy font-bold hover:underline">Log in</a> to track your contributions!
-              </p>
+              <div className="bg-brutal-yellow/30 border-3 border-black p-3 text-sm font-sans">
+                You are donating as a guest.{" "}
+                <a href="/auth/login" className="font-bold underline underline-offset-2 hover:text-brutal-blue">
+                  Log in
+                </a>{" "}
+                to track your contributions!
+              </div>
             )}
 
-            <Button type="submit" disabled={loading} className="w-full bg-gold text-navy hover:bg-gold/90 font-bold mt-2">
-              {loading ? "Processing..." : "Proceed to Pay"}
+            <Button type="submit" disabled={loading} className="w-full text-base">
+              {loading ? "Processing..." : "Proceed to Pay →"}
             </Button>
           </form>
         </DialogContent>

@@ -27,18 +27,18 @@ export default async function EventDetailPage({ params }: { params: { id: string
   const isEnded = daysLeft <= 0 || event.status !== "ACTIVE" || event.raisedAmount >= event.targetAmount;
 
   return (
-    <div className="container mx-auto px-4 py-8 max-w-5xl">
+    <div className="container mx-auto px-4 py-10 max-w-6xl">
       {/* Banner */}
-      <div className="w-full h-64 md:h-96 bg-neutral-200 rounded-xl overflow-hidden relative mb-8">
+      <div className="w-full h-64 md:h-96 bg-brutal-cream relative border-3 border-black shadow-brutal-md overflow-hidden mb-10">
         {event.bannerImage ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img src={event.bannerImage} alt={event.title} className="w-full h-full object-cover" />
         ) : (
-          <div className="w-full h-full flex items-center justify-center text-neutral-400 bg-navy/10 text-xl">
-            No Image Available
+          <div className="w-full h-full flex items-center justify-center text-brutal-charcoal">
+            <span className="font-heading text-lg uppercase tracking-wider">No Image Available</span>
           </div>
         )}
-        <Badge className="absolute top-4 right-4 text-lg py-1 px-3 bg-navy text-white">
+        <Badge className="absolute top-4 right-4 text-sm py-1.5 px-4" variant="secondary">
           {event.category.name}
         </Badge>
       </div>
@@ -46,56 +46,76 @@ export default async function EventDetailPage({ params }: { params: { id: string
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
         {/* Main Content */}
         <div className="md:col-span-2">
-          <h1 className="text-4xl font-bold text-navy dark:text-white mb-4">{event.title}</h1>
-          <div className="prose dark:prose-invert max-w-none text-neutral-600 dark:text-neutral-300">
+          <h1 className="font-heading text-4xl md:text-5xl font-bold uppercase tracking-tight text-brutal-black mb-6 leading-tight">
+            {event.title}
+          </h1>
+          <div className="border-3 border-black bg-white p-6 shadow-brutal font-sans text-brutal-charcoal leading-relaxed text-base">
             {event.description.split('\n').map((paragraph, i) => (
-              <p key={i} className="mb-4">{paragraph}</p>
+              <p key={i} className="mb-4 last:mb-0">{paragraph}</p>
             ))}
           </div>
         </div>
 
         {/* Sidebar / Donation Card */}
         <div>
-          <div className="bg-white dark:bg-neutral-800 p-6 rounded-xl shadow-lg border border-neutral-100 dark:border-neutral-700 sticky top-8">
-            <h3 className="text-3xl font-bold text-navy dark:text-white mb-2">
-              ₹{event.raisedAmount.toLocaleString()}
-            </h3>
-            <p className="text-neutral-500 mb-4">raised of ₹{event.targetAmount.toLocaleString()} goal</p>
+          <div className="bg-white border-3 border-black shadow-brutal-md p-6 sticky top-24">
+            {/* Amount Raised */}
+            <div className="mb-4">
+              <h3 className="font-heading text-4xl font-bold text-brutal-black">
+                ₹{event.raisedAmount.toLocaleString()}
+              </h3>
+              <p className="text-label text-brutal-charcoal mt-1">
+                raised of ₹{event.targetAmount.toLocaleString()} goal
+              </p>
+            </div>
             
-            <Progress value={progress} className="h-3 mb-6 bg-neutral-100" />
-            
-            <div className="flex justify-between text-neutral-600 dark:text-neutral-400 mb-6 font-medium">
-              <span>{event.donations.length} donors</span>
-              <span>{daysLeft > 0 ? `${daysLeft} days left` : "Campaign Ended"}</span>
+            {/* Progress */}
+            <Progress value={progress} className="mb-2" />
+            <div className="flex justify-between items-center mb-6">
+              <span className="text-label text-brutal-blue">{Math.round(progress)}% funded</span>
+              <span className="text-label text-brutal-charcoal">
+                {daysLeft > 0 ? `${daysLeft} days left` : "Ended"}
+              </span>
             </div>
 
+            {/* Donor count */}
+            <div className="bg-brutal-cream border-3 border-black p-3 mb-6 text-center">
+              <span className="font-heading text-2xl font-bold text-brutal-black">{event.donations.length}</span>
+              <span className="text-label text-brutal-charcoal ml-2">donors</span>
+            </div>
+
+            {/* Donate CTA */}
             {!isEnded ? (
               <DonateButton eventId={event.id} />
             ) : (
-              <div className="bg-neutral-100 dark:bg-neutral-700 text-center py-3 rounded-lg text-neutral-600 font-medium">
-                This campaign is no longer active.
+              <div className="bg-brutal-cream border-3 border-black text-center py-4 font-heading text-sm uppercase tracking-wider text-brutal-charcoal">
+                Campaign Ended
               </div>
             )}
 
             {/* Recent Donors */}
-            <div className="mt-8 pt-6 border-t border-neutral-200 dark:border-neutral-700">
-              <h4 className="font-bold text-navy dark:text-white mb-4">Recent Donors</h4>
+            <div className="mt-8 pt-6 border-t-3 border-black">
+              <h4 className="font-heading text-sm font-bold uppercase tracking-wider text-brutal-black mb-4">
+                Recent Donors
+              </h4>
               {event.donations.length === 0 ? (
-                <p className="text-neutral-500 text-sm">Be the first to donate!</p>
+                <p className="text-brutal-charcoal text-sm font-sans">Be the first to donate!</p>
               ) : (
                 <ul className="space-y-4">
                   {event.donations.map((donation) => (
                     <li key={donation.id} className="flex items-start gap-3 text-sm">
-                      <div className="w-8 h-8 rounded-full bg-gold flex items-center justify-center text-navy font-bold flex-shrink-0">
-                        {donation.isAnonymous ? "A" : (donation.user?.name?.[0] || "U")}
+                      <div className="w-9 h-9 border-2 border-black bg-brutal-yellow flex items-center justify-center font-heading font-bold text-brutal-black flex-shrink-0">
+                        {donation.isAnonymous ? "?" : (donation.user?.name?.[0] || "U")}
                       </div>
                       <div>
-                        <p className="font-medium text-navy dark:text-white">
+                        <p className="font-heading font-bold text-brutal-black text-sm">
                           {donation.isAnonymous ? "Anonymous" : (donation.user?.name || "Student")}
                         </p>
-                        <p className="text-neutral-500 font-bold">₹{donation.amount.toLocaleString()}</p>
+                        <p className="font-heading font-bold text-brutal-blue text-sm">
+                          ₹{donation.amount.toLocaleString()}
+                        </p>
                         {donation.message && (
-                          <p className="text-neutral-600 dark:text-neutral-400 italic mt-1">"{donation.message}"</p>
+                          <p className="text-brutal-charcoal font-sans text-xs mt-1 italic">"{donation.message}"</p>
                         )}
                       </div>
                     </li>

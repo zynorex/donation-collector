@@ -8,10 +8,7 @@ import { Badge } from "@/components/ui/badge";
 
 export default async function DashboardPage() {
   const session = await getServerSession(authOptions);
-
-  if (!session) {
-    redirect("/auth/login");
-  }
+  if (!session) redirect("/auth/login");
 
   const user = await prisma.user.findUnique({
     where: { id: session.user.id },
@@ -24,57 +21,55 @@ export default async function DashboardPage() {
     },
   });
 
-  if (!user) {
-    redirect("/auth/login");
-  }
+  if (!user) redirect("/auth/login");
 
   const totalContributed = user.donations.reduce((sum, d) => sum + d.amount, 0);
 
   // Badge logic
   const badges = [];
-  if (totalContributed >= 100) badges.push({ name: "Supporter", color: "bg-blue-100 text-blue-800" });
-  if (totalContributed >= 1000) badges.push({ name: "Champion", color: "bg-gold text-navy" });
-  if (user.donations.length >= 5) badges.push({ name: "Frequent Giver", color: "bg-green-100 text-green-800" });
+  if (totalContributed >= 100) badges.push({ name: "Supporter", variant: "default" as const });
+  if (totalContributed >= 1000) badges.push({ name: "Champion", variant: "warning" as const });
+  if (user.donations.length >= 5) badges.push({ name: "Frequent Giver", variant: "success" as const });
 
   return (
-    <div className="container mx-auto px-4 py-8 max-w-5xl">
-      <h1 className="text-3xl font-bold text-navy dark:text-white mb-8">My Dashboard</h1>
+    <div className="container mx-auto px-4 py-10 max-w-5xl">
+      <div className="flex items-center gap-4 mb-8">
+        <h1 className="font-heading text-3xl md:text-4xl font-bold uppercase tracking-tight text-brutal-black">
+          My Dashboard
+        </h1>
+        <div className="flex-1 h-[3px] bg-black hidden md:block" />
+      </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-        <Card className="bg-navy text-white border-none">
-          <CardHeader className="pb-2">
-            <CardTitle className="text-lg font-medium text-neutral-300">Total Contributed</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="text-4xl font-bold">₹{totalContributed.toLocaleString()}</div>
-          </CardContent>
-        </Card>
-        
-        <Card className="md:col-span-2">
-          <CardHeader className="pb-2">
-            <CardTitle className="text-lg font-medium text-navy dark:text-white">My Badges</CardTitle>
-          </CardHeader>
-          <CardContent className="flex gap-2 flex-wrap pt-4">
+        <div className="bg-brutal-lime border-3 border-black shadow-brutal p-6">
+          <p className="text-label text-brutal-black/70 mb-1">Total Contributed</p>
+          <div className="font-heading text-4xl font-bold text-brutal-black">₹{totalContributed.toLocaleString()}</div>
+        </div>
+
+        <div className="md:col-span-2 bg-white border-3 border-black shadow-brutal p-6">
+          <p className="text-label text-brutal-charcoal mb-3">My Badges</p>
+          <div className="flex gap-2 flex-wrap">
             {badges.length === 0 ? (
-              <p className="text-neutral-500">Make your first donation to earn a badge!</p>
+              <p className="text-brutal-charcoal font-sans text-sm">Make your first donation to earn a badge!</p>
             ) : (
               badges.map((badge, idx) => (
-                <Badge key={idx} className={`${badge.color} px-3 py-1 text-sm font-medium border-none`}>
-                  {badge.name}
-                </Badge>
+                <Badge key={idx} variant={badge.variant}>{badge.name}</Badge>
               ))
             )}
-          </CardContent>
-        </Card>
+          </div>
+        </div>
       </div>
 
       <Card>
         <CardHeader>
-          <CardTitle className="text-xl text-navy dark:text-white">Donation History</CardTitle>
+          <CardTitle className="text-xl uppercase">Donation History</CardTitle>
         </CardHeader>
         <CardContent>
           {user.donations.length === 0 ? (
-            <p className="text-neutral-500 text-center py-8">No donations yet. Start making an impact today!</p>
+            <div className="text-center py-10 border-3 border-black bg-brutal-cream">
+              <p className="font-heading text-lg uppercase text-brutal-charcoal">No donations yet.</p>
+              <p className="text-brutal-charcoal/60 mt-1 font-sans text-sm">Start making an impact today!</p>
+            </div>
           ) : (
             <Table>
               <TableHeader>
@@ -88,13 +83,11 @@ export default async function DashboardPage() {
               <TableBody>
                 {user.donations.map((donation) => (
                   <TableRow key={donation.id}>
-                    <TableCell className="font-medium">{donation.event.title}</TableCell>
-                    <TableCell>{new Date(donation.createdAt).toLocaleDateString()}</TableCell>
-                    <TableCell>₹{donation.amount.toLocaleString()}</TableCell>
+                    <TableCell className="font-heading font-bold">{donation.event.title}</TableCell>
+                    <TableCell className="font-sans">{new Date(donation.createdAt).toLocaleDateString()}</TableCell>
+                    <TableCell className="font-heading font-bold text-brutal-blue">₹{donation.amount.toLocaleString()}</TableCell>
                     <TableCell>
-                      <Badge className="bg-green-100 text-green-800 hover:bg-green-100 border-none">
-                        Success
-                      </Badge>
+                      <Badge variant="success">Success</Badge>
                     </TableCell>
                   </TableRow>
                 ))}

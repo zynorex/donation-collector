@@ -35,20 +35,29 @@ export default async function Home() {
       <Hero />
       
       {/* Stats Section */}
-      <section className="py-12 bg-white dark:bg-neutral-800">
+      <section className="py-12 bg-white border-b-4 border-black">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center divide-y md:divide-y-0 md:divide-x divide-neutral-200 dark:divide-neutral-700">
-            <div className="py-4">
-              <h3 className="text-4xl font-bold text-navy dark:text-white mb-2">₹{totalRaised.toLocaleString()}</h3>
-              <p className="text-neutral-500 uppercase tracking-wider text-sm">Total Raised</p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {/* Total Raised */}
+            <div className="bg-brutal-lime border-3 border-black shadow-brutal p-6 text-center">
+              <h3 className="font-heading text-4xl md:text-5xl font-bold text-brutal-black mb-1">
+                ₹{totalRaised.toLocaleString()}
+              </h3>
+              <p className="text-label text-brutal-black/70">Total Raised</p>
             </div>
-            <div className="py-4">
-              <h3 className="text-4xl font-bold text-navy dark:text-white mb-2">{totalDonors}</h3>
-              <p className="text-neutral-500 uppercase tracking-wider text-sm">Donors</p>
+            {/* Donors */}
+            <div className="bg-brutal-blue border-3 border-black shadow-brutal p-6 text-center">
+              <h3 className="font-heading text-4xl md:text-5xl font-bold text-white mb-1">
+                {totalDonors}
+              </h3>
+              <p className="text-label text-white/80">Donors</p>
             </div>
-            <div className="py-4">
-              <h3 className="text-4xl font-bold text-navy dark:text-white mb-2">{activeEvents}</h3>
-              <p className="text-neutral-500 uppercase tracking-wider text-sm">Active Events</p>
+            {/* Active Events */}
+            <div className="bg-brutal-coral border-3 border-black shadow-brutal p-6 text-center">
+              <h3 className="font-heading text-4xl md:text-5xl font-bold text-white mb-1">
+                {activeEvents}
+              </h3>
+              <p className="text-label text-white/80">Active Events</p>
             </div>
           </div>
         </div>
@@ -57,11 +66,21 @@ export default async function Home() {
       {/* Featured Events */}
       <section className="py-16">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-navy dark:text-white mb-8 text-center">
-            Featured Campaigns
-          </h2>
+          <div className="flex items-center gap-4 mb-10">
+            <h2 className="font-heading text-3xl md:text-4xl font-bold uppercase tracking-tight text-brutal-black">
+              Featured Campaigns
+            </h2>
+            <div className="flex-1 h-[3px] bg-black hidden md:block" />
+            <div className="w-6 h-6 bg-brutal-lime border-3 border-black rotate-45 hidden md:block" />
+          </div>
+
           {events.length === 0 ? (
-            <div className="text-center text-neutral-500">No active campaigns at the moment.</div>
+            <div className="text-center py-16 border-3 border-black bg-white shadow-brutal">
+              <p className="font-heading text-xl uppercase text-brutal-charcoal">
+                No active campaigns at the moment.
+              </p>
+              <p className="text-brutal-charcoal/60 mt-2 font-sans">Check back soon for new events!</p>
+            </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {events.map((event) => (
